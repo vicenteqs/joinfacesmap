@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<p:layout fullPage="false" style="height:100%;">
+		<p:layoutUnit position="west"
+			style="height:800px;width:400px;border: 0;">
+			<h:form id="projectTreeForm">
+
+				<p:growl id="msgs" showDetail="true" />
+
+				<p:tree id="projectTree" value="#{generalProjectBean.root}"
+					var="node" selectionMode="single" highlight="true" nodeVar="nodeObj"
+					selection="#{generalProjectBean.selectedNode}" draggable="true"
+					droppable="true" dragdropScope="demo" style="border:0;">
+					<p:ajax event="dragdrop"
+						listener="#{generalProjectBean.onDragDropNode}"
+						update=":projectTreeForm:msgs" />
+					<p:ajax event="select" listener="#{generalProjectBean.showDetail}"
+						update="detailPanel" />
+					<p:treeNode icon="#{nodeObj.icon}">
+						<h:outputText value="#{node}" />
+					</p:treeNode>
+				</p:tree>
+
+				<p:contextMenu for="projectTree">
+					<p:menuitem value="View" update="detailPanel"
+						action="#{generalProjectBean.showDetail}" icon="pi pi-times" />
+					<p:menuitem value="Delete" update="msgs"
+						action="#{generalProjectBean.showDetail}" icon="pi pi-times" />
+				</p:contextMenu>
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center"
+			style="border: 0; border-radius: 0px; border-left: 2px solid rgb(235, 236, 240);">
+			<p:outputPanel id="detailPanel">
+				<ui:include src="#{generalProjectBean.detailPage}" />
+			</p:outputPanel>
+		</p:layoutUnit>
+	</p:layout>
+</ui:fragment>

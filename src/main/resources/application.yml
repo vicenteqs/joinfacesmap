@@ -1,0 +1,21 @@
+joinfaces:
+  jsf:
+    PROJECT_STAGE: Development
+  primefaces: 
+    theme: overcast
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/joinfacesmap?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: root
+    testWhileIdle: true
+    validationQuery: SELECT 1
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect

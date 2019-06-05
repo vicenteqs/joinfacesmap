@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:head>
+	<title>Create task</title>
+	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel id="panel">
+			<p:messages id="msgs" />
+			<h:panelGrid columns="3" cellpadding="5">
+
+
+				<p:outputLabel value="User" for="acUser" />
+				<p:autoComplete id="acUser" minQueryLength="3"
+					value="#{createTaskBean.user}"
+					completeMethod="#{createTaskBean.findUsers}"
+					itemLabel="#{user.displayName}" itemValue="#{user}" var="user"
+					effect="fade" forceSelection="true" required="true">
+					<o:converter converterId="omnifaces.ListConverter"
+						list="#{createTaskBean.filteredUsers}" />
+				</p:autoComplete>
+				<p:message for="acUser" display="icon" />
+
+				<p:outputLabel value="Project" for="acProject" />
+				<p:autoComplete id="acProject" minQueryLength="3"
+					value="#{createTaskBean.project}"
+					completeMethod="#{createTaskBean.findProjects}"
+					itemLabel="#{project.name}" itemValue="#{project}" var="project"
+					effect="fade" forceSelection="true">
+					<o:converter converterId="omnifaces.ListConverter"
+						list="#{createTaskBean.filteredProjects}" />
+				</p:autoComplete>
+				<p:message for="acProject" display="icon" />
+
+				<p:outputLabel value="Parent task" for="acTask" />
+				<p:autoComplete id="acTask" minQueryLength="2"
+					value="#{createTaskBean.task}"
+					completeMethod="#{createTaskBean.findTasks}"
+					itemLabel="#{task.name}" itemValue="#{task}" var="task"
+					effect="fade" forceSelection="true">
+					<o:converter converterId="omnifaces.ListConverter"
+						list="#{createTaskBean.filteredTasks}" />
+				</p:autoComplete>
+				<p:message for="acTask" display="icon" />
+
+				<p:outputLabel value="Estimated Time" for="estimated" />
+				<p:inputNumber id="estimated" value="#{createTaskBean.estimated}"
+					minValue="0" maxValue="1000" decimalPlaces="2" />
+				<p:message for="estimated" display="icon" />
+
+				<p:outputLabel for="name" value="Name" />
+				<p:inputText id="name" value="#{createTaskBean.name}" />
+				<p:message for="name" display="icon" />
+
+				<p:outputLabel for="description" value="Description" />
+				<p:textEditor id="description" widgetVar="editorTask"
+					value="#{createTaskBean.description}" height="300" />
+				<p:message for="description" display="icon" />
+
+				<p:commandButton value="Submit" icon="pi pi-check"
+					action="#{createTaskBean.create}" update="panel">
+					<p:ajax event="dialogReturn"
+						listener="#{startMBean.handleCreateTask}" />
+				</p:commandButton>
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>
