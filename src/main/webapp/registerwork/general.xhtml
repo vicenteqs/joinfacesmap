@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<h:form>
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:panel id="registerWorkTimePanel" header="Select week">
+			<h:panelGrid columns="7" cellpadding="5">
+				<p:outputLabel for="month" value="Month: " />
+				<p:selectOneMenu id="month" value="#{registerTimeBean.month}"
+					style="width:150px">
+					<p:ajax listener="#{registerTimeBean.onDateChange}"
+						update="registerWorkTimePanel" />
+					<f:selectItem itemLabel="Select Month" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{registerTimeBean.months}" />
+				</p:selectOneMenu>
+				<p:outputLabel for="year" value="Year: " />
+				<p:selectOneMenu id="year" value="#{registerTimeBean.year}"
+					style="width:150px">
+					<p:ajax listener="#{registerTimeBean.onDateChange}"
+						update="registerWorkTimePanel" />
+					<f:selectItem itemLabel="Select Year" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{registerTimeBean.years}" />
+				</p:selectOneMenu>
+				<p:commandButton value="Previous Week" id="previousWeek"
+					action="#{registerTimeBean.changeWeek(-1)}"
+					update="registerWorkTimePanel" icon="pi pi-save" />
+				<p:commandButton value="Next Week" id="nextWeek"
+					action="#{registerTimeBean.changeWeek(1)}"
+					update="registerWorkTimePanel" icon="pi pi-save" />
+				<p:commandButton value="Save" id="saveWorkButton"
+					action="#{registerTimeBean.saveWorkTime()}"
+					update="registerWorkTimePanel" icon="pi pi-save" />
+			</h:panelGrid>
+
+			<p:separator />
+
+			<p:dataTable var="task"
+				value="#{registerTimeBean.tasks}">
+
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column colspan="4" />
+						<p:column headerText="Mon" />
+						<p:column headerText="Tue" />
+						<p:column headerText="Wed" />
+						<p:column headerText="Thu" />
+						<p:column headerText="Fri" />
+						<p:column headerText="Sat" />
+						<p:column headerText="Sun" />
+					</p:row>
+					<p:row>
+						<p:column colspan="2" headerText="Task" />
+						<p:column colspan="2" headerText="Project" />
+						<p:column headerText="#{registerTimeBean.days[0]}" />
+						<p:column headerText="#{registerTimeBean.days[1]}" />
+						<p:column headerText="#{registerTimeBean.days[2]}" />
+						<p:column headerText="#{registerTimeBean.days[3]}" />
+						<p:column headerText="#{registerTimeBean.days[4]}" />
+						<p:column headerText="#{registerTimeBean.days[5]}" />
+						<p:column headerText="#{registerTimeBean.days[6]}" />
+						<p:column headerText="Week" />
+						<p:column headerText="Month" />
+						<p:column headerText="Total" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:column colspan="2">
+					<h:outputText value="#{task.taskName}" />
+				</p:column>
+
+				<p:column colspan="2">
+					<h:outputText value="#{task.projectName}" />
+				</p:column>
+
+				<p:column style="text-align:center;">
+					<p:inputText style="text-align:center;" size="5"
+						value="#{task.time[0]}" />
+				</p:column>
+
+				<p:column style="text-align:center;">
+					<p:inputText style="text-align:center;" size="5"
+						value="#{task.time[1]}" />
+				</p:column>
+
+				<p:column style="text-align:center;">
+					<p:inputText style="text-align:center;" size="5"
+						value="#{task.time[2]}" />
+				</p:column>
+
+				<p:column style="text-align:center;">
+					<p:inputText style="text-align:center;" size="5"
+						value="#{task.time[3]}" />
+				</p:column>
+
+				<p:column style="text-align:center;">
+					<p:inputText style="text-align:center;" size="5"
+						value="#{task.time[4]}" />
+				</p:column>
+
+				<p:column style="text-align:center;">
+					<p:inputText style="text-align:center;" size="5"
+						value="#{task.time[5]}" />
+				</p:column>
+
+				<p:column style="text-align:center;">
+					<p:inputText style="text-align:center;" size="5"
+						value="#{task.time[6]}" />
+				</p:column>
+
+				<p:column style="text-align:center;">
+					<h:outputText style="text-align:center;" value="0" />
+				</p:column>
+
+				<p:column style="text-align:center;">
+					<h:outputText style="text-align:center;" value="0" />
+				</p:column>
+
+				<p:column style="text-align:center;">
+					<h:outputText style="text-align:center;" value="0" />
+				</p:column>
+
+
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+</ui:fragment>

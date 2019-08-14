@@ -14,13 +14,13 @@
 	<artifactId>JoinFacesMap</artifactId>
 	<version>1.0</version>
 	<name>JoinFacesMap</name>
-	<description>Demo project for Spring Boot</description>
+	<description>JoinFacesMap</description>
 	<packaging>war</packaging>
 
 
 	<properties>
 		<java.version>1.8</java.version>
-		<joinfaces.version>4.0.5</joinfaces.version>
+		<joinfaces.version>4.0.7</joinfaces.version>
 		<primefaces-theme.version>1.0.10</primefaces-theme.version>
 		<maven-model.version>3.6.0</maven-model.version>
 	</properties>

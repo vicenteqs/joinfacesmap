@@ -28,6 +28,14 @@
 
 				<p:megaMenu orientation="horizontal"
 					style="border: 0; border-radius: 0px; border-bottom: 2px solid rgb(235, 236, 240);">
+					<p:submenu label="General">
+						<p:column>
+							<p:submenu label="Edit">
+								<p:menuitem value="Register work"
+									action="#{sessionBean.goToRegisterWork()}" size="50" />
+							</p:submenu>
+						</p:column>
+					</p:submenu>
 					<p:submenu label="Project">
 						<p:column>
 							<p:submenu label="Edit">

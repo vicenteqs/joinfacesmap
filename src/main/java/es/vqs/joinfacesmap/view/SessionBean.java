@@ -12,8 +12,13 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import es.vqs.joinfacesmap.model.entity.User;
+import es.vqs.joinfacesmap.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +28,9 @@ public class SessionBean implements Serializable {
 
 	private static final long serialVersionUID = 5139026355400486084L;
 
+	@Autowired
+	private UserService userService;
+
 	@Getter
 	@Setter
 	private String page;
@@ -31,9 +39,17 @@ public class SessionBean implements Serializable {
 	@Setter
 	private Long idProject;
 
+	@Getter
+	@Setter
+	private User loggedUser;
+
 	@PostConstruct
 	public void init() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		this.loggedUser = this.userService.findByLogin(authentication.getName());
+		
 		this.page = "default.xhtml";
+
 	}
 
 	public void showMessage() {
@@ -89,6 +105,10 @@ public class SessionBean implements Serializable {
 
 	public void goToProjectGeneral() {
 		this.changeFragment("/project/general.xhtml");
+	}
+	
+	public void goToRegisterWork() {
+		this.changeFragment("/registerwork/general.xhtml");
 	}
 
 	public void changeFragment(String _page) {

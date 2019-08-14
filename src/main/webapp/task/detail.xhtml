@@ -19,18 +19,18 @@
 				</p:inplace>
 				<p:message for="name" display="icon" />
 			</h:panelGrid>
+
 			<p:accordionPanel id="accordion" multiple="true">
 				<p:tab title="Details">
-
 					<h:panelGrid columns="3" cellpadding="5" style="border:0;">
-
-
-						<p:outputLabel for="description" value="Description" />
-						<!-- <p:inplace id="inDescription">
+						<!-- 
+						<p:inplace id="inDescription">
 							<p:textEditor id="description" widgetVar="editorTask"
 								value="#{detailTaskBean.description}" height="300" />
-						</p:inplace>-->
-						<h:outputText id="description" value="#{detailTaskBean.description}" escape="false" />
+						</p:inplace>
+						-->
+						<h:outputText id="description"
+							value="#{detailTaskBean.description}" escape="false" />
 						<p:message for="description" display="icon" />
 
 						<p:outputLabel value="User" for="acUser" />
@@ -59,6 +59,71 @@
 					</h:panelGrid>
 				</p:tab>
 				<p:tab title="Comments">
+
+					<p:dataGrid id="commentGrid" var="comment"
+						value="#{detailTaskBean.comments}" columns="1" layout="grid"
+						rows="6" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="6,12,16">
+
+						<p:panel header="#{comment.creationDate}">
+							<h:panelGrid columns="1" style="width:100%">
+								<h:outputText value="#{comment.comment}" escape="false" />
+							</h:panelGrid>
+						</p:panel>
+
+					</p:dataGrid>
+					<!-- 
+					<p:dataView var="comment" value="#{detailTaskBean.comments}"
+						rows="12" paginator="true" rowsPerPageTemplate="6,12,16"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+
+						<p:dataViewGridItem>
+							<p:panel header="#{comment.creationDate}"
+								style="text-align:center">
+								<h:panelGrid columns="1" style="width:100%">
+									<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
+
+									<h:outputText value="#{comment.comments}" />
+
+								</h:panelGrid>
+							</p:panel>
+						</p:dataViewGridItem>
+
+						<p:dataViewListItem>
+							<h:panelGrid columns="3" style="width:100%"
+								columnClasses="logo,detail">
+								<p:graphicImage name="demo/images/car/#{car.brand}-big.gif" />
+
+								<p:outputPanel>
+									<h:panelGrid columns="2" cellpadding="5">
+										<h:outputText value="Id:" />
+										<h:outputText value="#{comment.creationDate}"
+											style="font-weight: bold" />
+
+										<h:outputText value="Year:" />
+										<h:outputText value="#{comment.creationDate}"
+											style="font-weight: bold" />
+
+										<h:outputText value="Color:" />
+										<h:outputText value="#{comment.creationDate}"
+											style="font-weight: bold" />
+									</h:panelGrid>
+								</p:outputPanel>
+
+							</h:panelGrid>
+						</p:dataViewListItem>
+					</p:dataView>
+					 -->
+					<p:textEditor widgetVar="newComment"
+						value="#{detailTaskBean.newComment}" height="150"
+						style="padding-bottom:10px;padding-top:10px" />
+
+					<p:commandButton value="Add comment" id="addCommentButton"
+						action="#{detailTaskBean.addComment}" update="commentGrid"
+						style="margin-right:20px;" icon="pi pi-save" />
+
 				</p:tab>
 				<p:tab title="Activity">
 				</p:tab>

@@ -17,4 +17,8 @@ public class UserService extends BaseService<User> {
 	public List<User> findByLikeName(String name) {
 		return this.userRepository.findByNameContaining(name);
 	}
+
+	public User findByLogin(String login) {
+		return this.userRepository.findByLogin(login);
+	}
 }
