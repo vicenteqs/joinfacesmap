@@ -1,7 +1,6 @@
 package es.vqs.joinfacesmap.model.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -34,6 +33,6 @@ public class Task extends BaseEntity implements Serializable {
 
 	private String name;
 	private String description;
-	private BigDecimal estimated;
+	private Long estimated;
 
 }

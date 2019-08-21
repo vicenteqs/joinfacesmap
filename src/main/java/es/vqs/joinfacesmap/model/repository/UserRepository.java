@@ -6,8 +6,10 @@ import es.vqs.joinfacesmap.model.entity.User;
 
 public interface UserRepository extends BaseRepository<User> {
 
-	List<User> findByNameContaining(String name);
+	List<User> findByDisplayNameContaining(String name);
 
 	User findByLogin(String username);
+
+	Iterable<User> findAllByOrderByDisplayNameAsc();
 	
 }

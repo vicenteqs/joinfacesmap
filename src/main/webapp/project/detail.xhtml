@@ -7,32 +7,38 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:o="http://omnifaces.org/ui"
-	xmlns:sec="http://www.springframework.org/security/tags">
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:t="http://example.com/tags">
 	<h:form>
 		<p:panel id="panel" style="border:0;">
 			<p:messages id="msgs" />
-			<h:panelGrid columns="4" cellpadding="5" style="border:0;">
-				<p:outputLabel value="User" for="acUser" />
-				<p:inplace id="inUser" label="Cities" effectSpeed="fast"
-					event="dblclick">
-					<p:autoComplete id="acUser" minQueryLength="3"
-						value="#{detailProjectBean.user}"
-						completeMethod="#{detailProjectBean.findUsers}"
-						itemLabel="#{user.displayName}" itemValue="#{user}" var="user"
-						effect="fade" forceSelection="true" required="true">
-						<o:converter converterId="omnifaces.ListConverter"
-							list="#{detailProjectBean.filteredUsers}" />
-					</p:autoComplete>
-					<p:message for="acUser" display="icon" />
-				</p:inplace>
+			<h:panelGrid columns="3" cellpadding="5" style="border:0;">
 
-				<p:outputLabel for="name" value="Name" />
-				<p:inputText id="name" value="#{detailProjectBean.name}" />
+				<img src="#{resource['images/project.png']}" height="64px"
+					width="64px" />
+				<p:inplace id="inName" styleClass="detailTitle">
+					<p:inputText id="name" value="#{detailProjectBean.name}" />
+				</p:inplace>
 				<p:message for="name" display="icon" />
+			</h:panelGrid>
+			<h:panelGrid columns="4" cellpadding="5" style="border:0;">
+
+				<p:outputLabel for="estimated" value="Estimated" />
+				<t:hourMinuteComponent id="estimated"
+					value="#{detailProjectBean.totalEstimated}" />
+
+				<p:outputLabel for="workedCustom" value="Worked" />
+				<t:hourMinuteComponent id="workedCustom"
+					value="#{detailProjectBean.totalWork}" />
+
+				<h:outputText id="worked" value="#{detailProjectBean.totalWork}"
+					converter="timeConverter" />
+
 
 				<p:commandButton value="Submit" icon="pi pi-check"
 					action="#{detailProjectBean.save}" update="panel">
 				</p:commandButton>
+				
 			</h:panelGrid>
 		</p:panel>
 	</h:form>

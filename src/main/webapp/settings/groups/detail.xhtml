@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:t="http://xmlns.jcp.org/jsf/composite/component">
+	<h:form id="form">
+		<p:panel id="panel" style="border:0;">
+			<p:messages id="msgs" />
+			<h:panelGrid columns="3" cellpadding="5" style="border:0;">
+
+				<img src="#{resource['images/group.png']}" height="64px" width="64px" />
+				<p:inplace id="inName" styleClass="detailTitle">
+					<p:inputText id="name" value="#{detailGroupBean.name}" />
+				</p:inplace>
+				<p:message for="name" display="icon" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="3" cellpadding="5" style="border:0;">
+				<h:outputText id="description" value="#{detailGroupBean.description}"
+					escape="false" />
+				<p:message for="description" display="icon" />
+
+				<p:outputLabel value="User" for="acUser" />
+				<p:inplace id="inUser" label="#{detailGroupBean.user.displayName}">
+					<p:autoComplete id="acUser" minQueryLength="3"
+						value="#{detailGroupBean.user}"
+						completeMethod="#{detailGroupBean.findUsers}"
+						itemLabel="#{user.displayName}" itemValue="#{user}" var="user"
+						effect="fade" forceSelection="true" required="true">
+						<o:converter converterId="omnifaces.ListConverter"
+							list="#{detailGroupBean.filteredUsers}" />
+					</p:autoComplete>
+				</p:inplace>
+				<p:message for="acUser" display="icon" />
+
+				<p:outputLabel value="Estimated Time" for="estimated" />
+				<p:inplace id="inEstimated">
+					<p:inputText id="estimated" value="#{detailGroupBean.estimated}"
+						converter="timeConverter" />
+				</p:inplace>
+				<p:message for="estimated" display="icon" />
+
+				<t:timeComponent value="#{detailGroupBean.estimated}" />
+
+				<p:commandButton value="Submit" action="#{detailGroupBean.save}"
+					update=":form:panel">
+				</p:commandButton>
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</ui:fragment>

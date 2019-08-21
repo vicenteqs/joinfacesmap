@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:t="http://xmlns.jcp.org/jsf/composite/component">
+	<h:form>
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:panel id="manageGroupsPanel" header="Groups">
+			<h:panelGrid columns="7" cellpadding="5">
+				<p:commandButton value="Create Group" id="createGroup"
+					action="#{manageGroupBean.openCreateGroup()}" update="groupTable"
+					icon="fas fa-folder-plus">
+					<p:ajax event="dialogReturn"
+						listener="#{manageGroupBean.handleCreateGroup()}"
+						update="groupTable" />
+				</p:commandButton>
+			</h:panelGrid>
+
+			<p:dataTable id="groupTable" var="group"
+				value="#{manageGroupBean.groups}" rows="6" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16">
+
+				<p:column headerText="Name">
+					<h:outputText value="#{group.name}" />
+				</p:column>
+
+				<p:column headerText="Description">
+					<h:outputText value="#{group.description}" />
+				</p:column>
+
+				<p:column headerText="Responsible">
+					<h:outputText value="#{group.responsible.displayName}" />
+				</p:column>
+
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton update="groupTable" icon="fa fa-edit" title="Edit"
+						actionListener="#{manageGroupBean.goToDetails()}">
+						<f:setPropertyActionListener value="#{group}"
+							target="#{manageGroupBean.selectedGroup}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton update="groupTable" icon="fa fa-trash"
+						title="Delete" actionListener="#{manageGroupBean.delete(group)}">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+</ui:fragment>

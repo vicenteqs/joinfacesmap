@@ -14,6 +14,8 @@
 	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
 	<link href="https://fonts.googleapis.com/css?family=Montserrat"
 		rel="stylesheet" />
+	<script src="https://kit.fontawesome.com/f2c8b1184e.js"></script>
+
 </h:head>
 
 <h:body>
@@ -47,11 +49,14 @@
 							</p:submenu>
 						</p:column>
 					</p:submenu>
-					<p:submenu label="Task">
+					<p:submenu label="Settings">
 						<p:column>
-							<p:menuitem value="Create Task"
-								action="#{sessionBean.createTask()}" size="50" update="messages"
-								icon="pi pi-save" />
+							<p:submenu label="Users and Groups">
+								<p:menuitem value="Users" action="#{sessionBean.goToUsers()}"
+									size="50" update="messages" icon="pi pi-save" />
+								<p:menuitem value="Groups" action="#{sessionBean.goToGroups()}"
+									size="50" update="messages" icon="pi pi-save" />
+							</p:submenu>
 						</p:column>
 					</p:submenu>
 				</p:megaMenu>

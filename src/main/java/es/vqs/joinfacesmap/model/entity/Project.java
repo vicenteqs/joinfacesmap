@@ -18,5 +18,6 @@ public class Project extends BaseEntity implements Serializable {
 	@ManyToOne
 	private User user;
 	private String name;
+	private Long estimated;
 
 }

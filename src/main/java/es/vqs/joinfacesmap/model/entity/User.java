@@ -2,8 +2,10 @@ package es.vqs.joinfacesmap.model.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,9 @@ import lombok.Setter;
 public class User extends BaseEntity implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = -7695321367876289986L;
+
+	@ManyToMany
+	private List<Group> groups;
 
 	private String name;
 	private String surname;

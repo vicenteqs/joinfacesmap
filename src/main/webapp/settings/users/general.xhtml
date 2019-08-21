@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:t="http://xmlns.jcp.org/jsf/composite/component">
+	<h:form>
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:panel id="manageGroupsPanel" header="Users">
+			<h:panelGrid columns="7" cellpadding="5">
+				<p:commandButton value="Create User" id="createUser"
+					action="#{manageUserBean.openCreateUser()}" update="userTable"
+					icon="fa fa-user-plus">
+					<p:ajax event="dialogReturn"
+						listener="#{manageUserBean.handleCreateUser()}" update="userTable" />
+				</p:commandButton>
+			</h:panelGrid>
+
+			<p:dataTable id="userTable" var="user"
+				value="#{manageUserBean.users}" rows="6" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16">
+
+				<p:column headerText="Name">
+					<h:outputText value="#{user.displayName}" />
+				</p:column>
+
+				<p:column headerText="Login">
+					<h:outputText value="#{user.login}" />
+				</p:column>
+
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton update="userTable" icon="fa fa-edit"
+						title="Edit" actionListener="#{manageUserBean.goToDetails()}">
+						<f:setPropertyActionListener value="#{user}"
+							target="#{manageUserBean.selectedUser}" />
+					</p:commandButton>
+
+				</p:column>
+				<p:column style="width:32px;text-align: center">
+
+					<p:commandButton update="userTable" icon="fa fa-trash"
+						title="Delete" actionListener="#{manageUserBean.delete()}">
+						<f:setPropertyActionListener value="#{user}"
+							target="#{manageUserBean.selectedUser}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+</ui:fragment>

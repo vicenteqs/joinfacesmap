@@ -7,7 +7,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:o="http://omnifaces.org/ui"
-	xmlns:sec="http://www.springframework.org/security/tags">
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:t="http://xmlns.jcp.org/jsf/composite/component">
 	<h:form>
 		<p:growl id="msgs" showDetail="true" />
 
@@ -44,8 +45,7 @@
 
 			<p:separator />
 
-			<p:dataTable var="task"
-				value="#{registerTimeBean.tasks}">
+			<p:dataTable var="task" value="#{registerTimeBean.tasks}">
 
 				<p:columnGroup type="header">
 					<p:row>
@@ -83,37 +83,37 @@
 				</p:column>
 
 				<p:column style="text-align:center;">
-					<p:inputText style="text-align:center;" size="5"
+					<t:timeComponent  style="text-align:center;" size="5"
 						value="#{task.time[0]}" />
 				</p:column>
 
 				<p:column style="text-align:center;">
-					<p:inputText style="text-align:center;" size="5"
+					<t:timeComponent  style="text-align:center;" size="5"
 						value="#{task.time[1]}" />
 				</p:column>
 
 				<p:column style="text-align:center;">
-					<p:inputText style="text-align:center;" size="5"
+					<t:timeComponent  style="text-align:center;" size="5"
 						value="#{task.time[2]}" />
 				</p:column>
 
 				<p:column style="text-align:center;">
-					<p:inputText style="text-align:center;" size="5"
+					<t:timeComponent  style="text-align:center;" size="5"
 						value="#{task.time[3]}" />
 				</p:column>
 
 				<p:column style="text-align:center;">
-					<p:inputText style="text-align:center;" size="5"
+					<t:timeComponent  style="text-align:center;" size="5"
 						value="#{task.time[4]}" />
 				</p:column>
 
 				<p:column style="text-align:center;">
-					<p:inputText style="text-align:center;" size="5"
+					<t:timeComponent  style="text-align:center;" size="5"
 						value="#{task.time[5]}" />
 				</p:column>
 
 				<p:column style="text-align:center;">
-					<p:inputText style="text-align:center;" size="5"
+					<t:timeComponent  style="text-align:center;" size="5"
 						value="#{task.time[6]}" />
 				</p:column>
 

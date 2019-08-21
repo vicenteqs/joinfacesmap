@@ -7,7 +7,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:o="http://omnifaces.org/ui"
-	xmlns:sec="http://www.springframework.org/security/tags">
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:t="http://xmlns.jcp.org/jsf/composite/component">
 	<h:form id="form">
 		<p:panel id="panel" style="border:0;">
 			<p:messages id="msgs" />
@@ -23,12 +24,6 @@
 			<p:accordionPanel id="accordion" multiple="true">
 				<p:tab title="Details">
 					<h:panelGrid columns="3" cellpadding="5" style="border:0;">
-						<!-- 
-						<p:inplace id="inDescription">
-							<p:textEditor id="description" widgetVar="editorTask"
-								value="#{detailTaskBean.description}" height="300" />
-						</p:inplace>
-						-->
 						<h:outputText id="description"
 							value="#{detailTaskBean.description}" escape="false" />
 						<p:message for="description" display="icon" />
@@ -48,10 +43,12 @@
 
 						<p:outputLabel value="Estimated Time" for="estimated" />
 						<p:inplace id="inEstimated">
-							<p:inputNumber id="estimated" value="#{detailTaskBean.estimated}"
-								minValue="0" maxValue="1000" decimalPlaces="2" />
+							<p:inputText id="estimated" value="#{detailTaskBean.estimated}"
+								converter="timeConverter" />
 						</p:inplace>
 						<p:message for="estimated" display="icon" />
+						
+						<t:timeComponent value="#{detailTaskBean.estimated}" />
 
 						<p:commandButton value="Submit" action="#{detailTaskBean.save}"
 							update=":form:panel">
@@ -62,7 +59,8 @@
 
 					<p:dataGrid id="commentGrid" var="comment"
 						value="#{detailTaskBean.comments}" columns="1" layout="grid"
-						rows="6" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+						rows="6" paginator="true" paginatorAlwaysVisible="false"
+						paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="6,12,16">
 
@@ -73,49 +71,7 @@
 						</p:panel>
 
 					</p:dataGrid>
-					<!-- 
-					<p:dataView var="comment" value="#{detailTaskBean.comments}"
-						rows="12" paginator="true" rowsPerPageTemplate="6,12,16"
-						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						gridIcon="pi pi-th-large" listIcon="pi pi-bars">
-
-						<p:dataViewGridItem>
-							<p:panel header="#{comment.creationDate}"
-								style="text-align:center">
-								<h:panelGrid columns="1" style="width:100%">
-									<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
-
-									<h:outputText value="#{comment.comments}" />
-
-								</h:panelGrid>
-							</p:panel>
-						</p:dataViewGridItem>
-
-						<p:dataViewListItem>
-							<h:panelGrid columns="3" style="width:100%"
-								columnClasses="logo,detail">
-								<p:graphicImage name="demo/images/car/#{car.brand}-big.gif" />
-
-								<p:outputPanel>
-									<h:panelGrid columns="2" cellpadding="5">
-										<h:outputText value="Id:" />
-										<h:outputText value="#{comment.creationDate}"
-											style="font-weight: bold" />
-
-										<h:outputText value="Year:" />
-										<h:outputText value="#{comment.creationDate}"
-											style="font-weight: bold" />
-
-										<h:outputText value="Color:" />
-										<h:outputText value="#{comment.creationDate}"
-											style="font-weight: bold" />
-									</h:panelGrid>
-								</p:outputPanel>
-
-							</h:panelGrid>
-						</p:dataViewListItem>
-					</p:dataView>
-					 -->
+					 
 					<p:textEditor widgetVar="newComment"
 						value="#{detailTaskBean.newComment}" height="150"
 						style="padding-bottom:10px;padding-top:10px" />

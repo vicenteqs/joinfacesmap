@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:head></h:head>
+<h:body>
+
+	<cc:interface>
+		<cc:attribute name="value" type="java.lang.Long" />
+		<cc:attribute name="size"  />
+		<cc:attribute name="style"  />
+	</cc:interface>
+
+	<cc:implementation>
+		<p:inputText id="ccTime" value="#{cc.attrs.value}" size="#{cc.attrs.size}" style="#{cc.attrs.style}"
+			converter="timeConverter">
+			<p:keyFilter regEx="/[\d\-\.\,\:]/"
+				inputRegEx="/(([0-9]+[:][0-5][0-9])|[\d\-\.])/" />
+			<p:ajax event="blur" update="ccTime" />
+		</p:inputText>
+	</cc:implementation>
+
+
+</h:body>
+</html>

@@ -15,10 +15,14 @@ public class UserService extends BaseService<User> {
 	private UserRepository userRepository;
 
 	public List<User> findByLikeName(String name) {
-		return this.userRepository.findByNameContaining(name);
+		return this.userRepository.findByDisplayNameContaining(name);
 	}
 
 	public User findByLogin(String login) {
 		return this.userRepository.findByLogin(login);
+	}
+
+	public Iterable<User> findAllOrdered() {
+		return this.userRepository.findAllByOrderByDisplayNameAsc();
 	}
 }

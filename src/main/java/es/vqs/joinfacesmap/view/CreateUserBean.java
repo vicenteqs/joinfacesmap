@@ -6,30 +6,28 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import es.vqs.joinfacesmap.model.entity.Project;
+import es.vqs.joinfacesmap.model.entity.Group;
 import es.vqs.joinfacesmap.model.entity.User;
-import es.vqs.joinfacesmap.service.ProjectService;
+import es.vqs.joinfacesmap.service.GroupService;
 import es.vqs.joinfacesmap.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
 
 @Component
 @ViewScoped
-public class DetailProjectBean implements Serializable {
+public class CreateUserBean implements Serializable {
 
-	private static final long serialVersionUID = -2873080720482413749L;
+	private static final long serialVersionUID = -1197848053208378878L;
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
-	private ProjectService projectService;
-
-	@Autowired
-	private SessionBean sessionBean;
+	private GroupService groupService;
 
 	@Getter
 	@Setter
@@ -45,21 +43,10 @@ public class DetailProjectBean implements Serializable {
 
 	@Getter
 	@Setter
-	private Long totalWork;
-
-	@Getter
-	@Setter
-	private Long totalEstimated;
-
-	private Project project;
+	private String description;
 
 	@PostConstruct
 	public void init() {
-		this.project = this.projectService.findById(this.sessionBean.getIdProject());
-		this.totalWork = this.projectService.getTotalWork(this.project);
-		this.totalEstimated = this.project.getEstimated();
-		this.name = project.getName();
-		this.user = project.getUser();
 
 	}
 
@@ -68,10 +55,12 @@ public class DetailProjectBean implements Serializable {
 		return this.filteredUsers;
 	}
 
-	public void save() {
-		this.project.setName(this.name);
-		this.project.setUser(this.user);
-		this.project = this.projectService.save(project);
+	public void create() {
+		Group group = new Group();
+		group.setName(this.name);
+		group.setResponsible(this.user);
+		group.setDescription(this.description);
+		PrimeFaces.current().dialog().closeDynamic(this.groupService.save(group));
 	}
 
 }

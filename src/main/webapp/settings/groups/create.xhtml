@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:head>
+	<title>Create task</title>
+	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel id="panel">
+			<p:messages id="msgs" />
+			<h:panelGrid columns="3">
+
+				<p:outputLabel for="name" value="Name" />
+				<p:inputText id="name" value="#{createGroupBean.name}"
+					required="true" />
+				<p:message for="name" display="icon" />
+
+				<p:outputLabel for="description" value="Description" />
+				<p:inputText id="description" value="#{createGroupBean.description}"
+					required="true" />
+				<p:message for="description" display="icon" />
+
+				<p:outputLabel value="Responsible" for="acUser" />
+				<p:autoComplete id="acUser" minQueryLength="3"
+					value="#{createGroupBean.user}"
+					completeMethod="#{createGroupBean.findUsers}"
+					itemLabel="#{user.displayName}" itemValue="#{user}" var="user"
+					effect="fade" forceSelection="true" required="true">
+					<o:converter converterId="omnifaces.ListConverter"
+						list="#{createGroupBean.filteredUsers}" />
+				</p:autoComplete>
+				<p:message for="acUser" display="icon" />
+
+
+				<p:commandButton value="Submit" icon="pi pi-check"
+					action="#{createGroupBean.create}" update="panel" />
+
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

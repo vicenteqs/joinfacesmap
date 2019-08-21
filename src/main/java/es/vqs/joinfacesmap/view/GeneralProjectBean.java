@@ -57,6 +57,18 @@ public class GeneralProjectBean implements Serializable {
 	@Setter
 	private String detailPage;
 
+	@Getter
+	@Setter
+	private Long totalWork;
+	
+	@Getter
+	@Setter
+	private String totalEstimated;
+	
+	@Getter
+	@Setter
+	private String totalRemaining;
+	
 	private List<ProjectNode> nodes;
 
 	@PostConstruct

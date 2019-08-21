@@ -1,7 +1,6 @@
 package es.vqs.joinfacesmap.view;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +42,7 @@ public class DetailTaskBean implements Serializable {
 
 	@Autowired
 	private GeneralProjectBean generalProjectBean;
-	
+
 	@Autowired
 	private SessionBean sessionBean;
 
@@ -73,7 +72,7 @@ public class DetailTaskBean implements Serializable {
 
 	@Getter
 	@Setter
-	private BigDecimal estimated;
+	private Long estimated;
 
 	@Getter
 	@Setter

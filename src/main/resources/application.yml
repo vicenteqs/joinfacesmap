@@ -3,6 +3,7 @@ joinfaces:
     PROJECT_STAGE: Development
   primefaces: 
     theme: overcast
+    FONT_AWESOME: true
 
 spring:
   datasource:

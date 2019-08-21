@@ -47,7 +47,7 @@ public class SessionBean implements Serializable {
 	public void init() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		this.loggedUser = this.userService.findByLogin(authentication.getName());
-		
+
 		this.page = "default.xhtml";
 
 	}
@@ -106,9 +106,17 @@ public class SessionBean implements Serializable {
 	public void goToProjectGeneral() {
 		this.changeFragment("/project/general.xhtml");
 	}
-	
+
 	public void goToRegisterWork() {
 		this.changeFragment("/registerwork/general.xhtml");
+	}
+	
+	public void goToUsers() {
+		this.changeFragment("/settings/users/general.xhtml");
+	}
+	
+	public void goToGroups() {
+		this.changeFragment("/settings/groups/general.xhtml");
 	}
 
 	public void changeFragment(String _page) {
@@ -120,4 +128,9 @@ public class SessionBean implements Serializable {
 		this.page = _page;
 		PrimeFaces.current().ajax().update("mainPanel");
 	}
+
+	public Long getMessage() {
+		return 3600l;
+	}
+
 }
